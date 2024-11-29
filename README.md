@@ -37,7 +37,7 @@ jarss erhält seine Informationen zur Durchführung einer Datensicherung über e
 ```bash /[ABSOLUTER-PFAD-ZUM-SCRIPT]/jarss.sh --job-name="[DATEINAME]" [--info=progress2] [--dry-run] [-v] [-vv] [-vvv]```
 
 ```
---job-name="[DATEINAME]" Hier den Dateinamen dieses Auftrages eintragen um das Backup auszuführen.
+--job-name="[DATEINAME]"     Hier den Dateinamen dieses Auftrages eintragen um das Backup auszuführen.
                              Beispiel: --job-name="[jarss_Konfiguration_GER]"
 
 Optionale Funktionen
