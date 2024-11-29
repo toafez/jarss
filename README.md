@@ -1,6 +1,8 @@
 [English](README_en.md) | Deutsch
 
 # jarss (just another rsync shell script) 
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Ftoafez%2Fjarss&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
+
 **jarss** verwendet **rsync**, um Daten zwischen lokalen Pfaden oder Pfaden, auf die über das Netzwerk mit **SSH-Public-Key-Authentifizierung** zugegriffen werden kann, zu übertragen. Neben **synchronisierten** Datensicherungen unterstützt jarss auch **inkrementelle** Datensicherungen. 
 
 ## So funktioniert jarss genau
