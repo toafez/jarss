@@ -1,0 +1,180 @@
+#!/bin/bash
+# Filename: jarss_Konfiguration_GER - coded in utf-8
+jobconfig_version="1.0-000"
+language="ger"
+#-----------------------------------------------------------------------------------------------
+# jarss - just another rsync shell script
+#-----------------------------------------------------------------------------------------------
+#
+# Scriptaufruf:
+# bash /[ABSOLUTER-PFAD-ZUM-SCRIPT]/jarss.sh --job-name="[DATEINAME]" [--dry-run] [-v] [-vv] [-vvv]
+#
+# --job-name="[DATEINAME]"  Hier den Dateinamen dieses Auftrages eintragen um das Backup
+#                           auszuführen. Beispiel: --job-name="[jarss_Konfiguration_GER]"
+# --info=progress2          Zeigt Informationen über den Gesamtfortschritt der 
+#                           Dateiübertragung an.
+# --dry-run                 Rsync simuliert nur was passieren würde, ohne das dabei 
+#                           Daten kopiert bzw. synchronisiert werden.
+# -v                        Kurzes rsync Protokoll, welche Dateien übertragen werden.
+# -vv                       Erweitertes rsync Protokoll, welche Dateien übersprungen werden. 
+# -vvv                      Sehr umfangreiches rsync Protokoll zum debuggen. 
+#
+#-----------------------------------------------------------------------------------------------
+
+
+# Zielverzeichnis
+#---------------------------------------------------------------------
+# Syntaxmuster: target="/[VOLUME]/[SHARE]/[FOLDER]"
+#---------------------------------------------------------------------
+# Es muss der vollständige Pfad zum Zielverzeichnis angegeben werden.
+# Wenn das Zielverzeichnis nicht existiert, wird es bei der ersten 
+# Datensicherung angelegt. Ungültige Zeichen in Datei- und 
+# Verzeichnisnamen sind ~ " # % & * : < > ? / \ { | }
+#---------------------------------------------------------------------
+target=""
+
+
+# Datensicherungsquelle(n)
+#---------------------------------------------------------------------
+# Syntaxmuster: sources="/[SHARE1]/[FOLDER1] & /[SHARE2]/[FOLDER2]"
+#---------------------------------------------------------------------
+# Es muss der vollständige Pfad zum Quellverzeichnis angegeben werden.
+# Wenn mehr als ein Quellverzeichnis angegeben wird, müssen die Pfade
+# durch das Symbol & getrennt werden, z. B. 
+# "/volume1/photo & /volume1/music/compilation & /volume1/video/series" 
+# Ungültige Zeichen in Datei- und Verzeichnisnamen sind
+# ~ " # % & * : < > ? / \ { | }
+#---------------------------------------------------------------------
+sources=""
+
+
+# Remote Server Adresse für die Durchführung eines Push-Backups
+#---------------------------------------------------------------------
+# Syntaxmuster: sshpush="192.168.178.20" oder "domain.tld"
+#---------------------------------------------------------------------
+# Die Übertragung von lokalen Backup-Quellen auf einen Remote-Server
+# wird als Push-Backup bezeichnet. In diesem Fall muss die URL oder
+# IPv4 des Remote-Servers, auf dem sich das Backup-Ziel befindet, 
+# angegeben werden.
+#---------------------------------------------------------------------
+sshpush=""
+
+
+# Remote Server Adresse für die Durchführung eines Pull-Backups
+#---------------------------------------------------------------------
+# Syntaxmuster: sshpull="192.168.178.20" oder "domain.tld"
+#---------------------------------------------------------------------
+# Die Übertragung von entfernten Backup-Quellen auf das lokale System 
+# wird als Pull-Sicherung bezeichnet. In diesem Fall muss die URL oder
+# IPv4 des entfernten Servers, auf dem sich die Sicherungsquelle(n) 
+# befindet, angegeben werden.
+#---------------------------------------------------------------------
+sshpull=""
+
+
+# SSH-Port
+#---------------------------------------------------------------------
+# Syntaxmuster: sshport="22" (Standardauswahl)
+#---------------------------------------------------------------------
+sshport="22"
+
+
+# SSH Benutzername
+#---------------------------------------------------------------------
+# Syntaxmuster: sshuser="root"
+#---------------------------------------------------------------------
+sshuser=""
+
+
+# Dateiname des zu verwendenden privaten SSH-Schlüssels
+#---------------------------------------------------------------------
+# Syntaxmuster: privatekey="id_rsa" (Standardauswahl)
+#---------------------------------------------------------------------
+# Wenn kein alternativer Dateiname für den privaten SSH-Schlüssel
+# angegeben wurde, wird der Standardname id_rsa verwendet. Ungültige
+# Zeichen in Datei- und Verzeichnisnamen sind
+# ~ " # % & * : < > ? / \ { | }
+#---------------------------------------------------------------------
+privatekey="id_rsa"
+
+
+# rsync Optionen
+#---------------------------------------------------------------------
+# Syntaxmuster: syncopt="-ah" (Standardauswahl)
+#---------------------------------------------------------------------
+syncopt="-ah"
+
+
+# Ausschließen von Dateien und Verzeichnissen
+#---------------------------------------------------------------------
+# Syntaxmuster: exclude="--delete-excluded --exclude=[DATEI-ODER-VERZEICHNIS]"
+#---------------------------------------------------------------------
+exclude="--delete-excluded --exclude=@eaDir/*** --exclude=@Logfiles/*** --exclude=#recycle/*** --exclude=#snapshot/*** --exclude=.DS_Store/***"
+
+
+# Begrenzung der Schreib- und Lesegeschwindigkeit
+#---------------------------------------------------------------------
+# Syntaxmuster: speedlimit="62500" (Standardauswahl)
+#---------------------------------------------------------------------
+# Bei der Synchronisation großer Datenmengen kann der rsync-Prozess 
+# eine sehr hohe Lese- und Schreiblast erzeugen, die die Verfügbarkeit
+# sowohl des lokalen Systems als auch aller beteiligten Remote-Server
+# für die Dauer des Prozesses einschränkt. Dieses Verhalten kann
+# deutlich verbessert werden, indem die Datenübertragungsrate
+# reduziert und die Lese- und Schreibgeschwindigkeit der verwendeten
+# Datenträgers berücksichtigt wird. Gib in das Feld unten einen Wert
+# zwischen 1 kB/s und 1250000 kB/s ein. Wenn der Wert 0 ist oder das
+# Feld leer gelassen wird, wird die maximal verfügbare 
+# Datentransferrate verwendet, was die Verfügbarkeit des Systems für
+# die Dauer des Tests erheblich reduziert.
+# 
+# 0,1 GBit/s    ≙	100 MBit/s	    ≙	12,5 MB/s	≙	12500 kB/s
+# 0,5 GBit/s	≙	500 MBit/s	    ≙	62,5 MB/s	≙	62500 kB/s
+# 1 GBit/s	    ≙	1000 MBit/s	    ≙	125 MB/s	≙	125000 kB/s
+# 2,5 GBit/s	≙	2500 MBit/s	    ≙	312,5 MB/s	≙	312500 kB/s
+# 5 GBit/s	    ≙	5000 MBit/s	    ≙	625 MB/s	≙	625000 kB/s
+# 10 GBit/s	    ≙	10000 Mbit/s    ≙	1250 MB/s	≙	1250000 kB/s
+
+# Befindet sich das Programm [ ionice ] jedoch auf dem lokalen System,
+# optimiert [ ionice ] die hohe Lese- und Schreiblast so, dass die
+# Verfügbarkeit deines Systems und eines eventuell beteiligten
+# entfernten Servers jederzeit gewährleistet ist. Dazu führt
+# [ ionice ] das rsync-Kommando im Idle-Modus aus, setzt oder bestimmt
+# die Priorität des rsync-Prozesses und gewährt ihm nur dann Zugriff
+# auf den Datenträger, wenn kein anderes Programm für eine bestimmte
+# Zeitspanne den Zugriff angefordert hat.
+#---------------------------------------------------------------------
+speedlimit="62500"
+
+
+# Inhalt des Papierkorbs /@recycle löschen, der älter ist als...
+#---------------------------------------------------------------------
+# Syntaxmuster: recycle="30" (Standardauswahl)
+#---------------------------------------------------------------------
+# Bei Angabe von 0 Tagen werden alle in der Zwischenzeit aus der/den
+# Sicherungsquelle(n) gelöschten Daten auch im Sicherungsziel
+# unwiderruflich gelöscht. Andernfalls werden die zwischenzeitlich
+# gelöschten Daten für die angegebene Zeit in Tagen in den Papierkorb
+# unter /@recycle des Zielordners verschoben.
+#---------------------------------------------------------------------
+recycle="30"
+
+
+# Inkrementelle Datensicherung (Versionierung)
+#---------------------------------------------------------------------
+# Syntaxmuster: incremental="true" oder "false"
+#---------------------------------------------------------------------
+# Im Gegensatz zu einer synchronen Datensicherung werden bei einer
+# inkrementellen Datensicherung alle Änderungen an der Quelle seit der
+# letzten Sicherung in einem separaten Ordner im Ziel gespeichert, der
+# nach Datum und Uhrzeit der aktuellen Sicherung sortiert ist. Die
+# Papierkorbfunktion steht hier nicht zur Verfügung.
+#---------------------------------------------------------------------
+incremental="false"
+
+
+# Versionsgeschichte löschen, die älter ist als... 
+#---------------------------------------------------------------------
+# Syntaxmuster: min. versions="2" Tage max. versions="365" Tage
+#---------------------------------------------------------------------
+versions="30"

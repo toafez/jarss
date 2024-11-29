@@ -1,0 +1,173 @@
+#!/bin/bash
+# Filename: jarss_Configuration_ENU - coded in utf-8
+jobconfig_version="1.0-000"
+language="enu"
+#-----------------------------------------------------------------------------------------------
+# jarss - just another rsync shell script
+#-----------------------------------------------------------------------------------------------
+#
+# Script call:
+# bash /[ABSOLUTE-PATH-TO-SCRIPT]/jarss.sh --job-name="[FILENAME]" [--dry-run] [-v] [-vv] [-vvv]
+#
+# --job-name="[FILENAME]"   Enter the file name of this job here to execute the backup
+#                           execute the backup. Example: --job-name="[jarss_Configuration_ENU]’
+# --info=progress2          Displays information about the overall progress of the
+#                           file transfer.
+# --dry-run                 Rsync only simulates what would happen if no data were
+#                           copied or synchronised.
+# -v                        Short rsync protocol, which files are transferred.
+# -vv                       Extended rsync protocol, which files are skipped. 
+# -vvv                      Very long rsync log for debugging. 
+#
+#-----------------------------------------------------------------------------------------------
+
+
+# Backup target
+#---------------------------------------------------------------------
+# Syntax pattern: target="/[VOLUME]/[SHARE]/[FOLDER]"
+#---------------------------------------------------------------------
+# The full path to the destination directory must be specified; if the
+# destination directory does not exist, it will be created during the
+# first backup. Invalid characters in file and directory names
+# are ~ " # % & * : < > ? / \ { | }
+#---------------------------------------------------------------------
+target=""
+
+
+# Backup source(s)
+#---------------------------------------------------------------------
+# Syntax pattern: sources="/[SHARE1]/[FOLDER1] & /[SHARE2]/[FOLDER2]"
+#---------------------------------------------------------------------
+# The full path to the source directory must be specified. If more
+# than one source directory is specified, the paths must be separated
+# by the & symbol, e.g. "/volume1/photo & /volume1/music/compilation 
+# & /volume1/video/series". Invalid characters in file or directory
+# name are ~ " # % & * : < > ? / \ { | }
+#---------------------------------------------------------------------
+sources=""
+
+
+# Remote server address for performing a push backup
+#---------------------------------------------------------------------
+# Syntax pattern: sshpush="192.168.178.20"
+#---------------------------------------------------------------------
+# The transfer of local backup sources to a remote server is known as
+# push backup. In this case, the URL or IPv4 of the remote server
+# where the backup destination is located must be specified.
+#---------------------------------------------------------------------
+sshpush=""
+
+
+# Remote server address for performing a pull backup
+#---------------------------------------------------------------------
+# Syntax pattern: sshpull="192.168.178.20"
+#---------------------------------------------------------------------
+# The transfer of remote backup sources to the local system is called
+# a pull backup. In this case, the URL or IPv4 of the remote server
+# where the backup source(s) are located must be specified. 
+#---------------------------------------------------------------------
+sshpull=""
+
+
+# SSH port
+#---------------------------------------------------------------------
+# Syntax pattern: sshport="22" (default selection)
+#---------------------------------------------------------------------
+sshport="22"
+
+
+# SSH username
+#---------------------------------------------------------------------
+# Syntax pattern: sshuser="root"
+#---------------------------------------------------------------------
+sshuser=""
+
+
+# Filename of the private SSH key to be used
+#---------------------------------------------------------------------
+# Syntax pattern: privatekey="id_rsa" (default selection)
+#---------------------------------------------------------------------
+# If no alternative filename is specified for the private SSH key, the
+# default name id_rsa is used. Invalid characters in file or directory
+#names are ~ " # % & * : < > ? / \ { | }
+#---------------------------------------------------------------------
+privatekey="id_rsa"
+
+
+# rsync options (z.B. -ah)
+#---------------------------------------------------------------------
+# Syntax pattern: syncopt="-ah" (default selection)
+#---------------------------------------------------------------------
+syncopt="-ah"
+
+
+# Exclude files and directories
+#---------------------------------------------------------------------
+# Syntax pattern: exclude="--delete-excluded --exclude=[FILE-OR-DIRECTORY]"
+#---------------------------------------------------------------------
+exclude="--delete-excluded --exclude=@eaDir/*** --exclude=@Logfiles/*** --exclude=#recycle/*** --exclude=#snapshot/*** --exclude=.DS_Store/***"
+
+
+# Limitation of the write and read speed
+#---------------------------------------------------------------------
+# Syntax pattern: speedlimit="62500" (default selection)
+#---------------------------------------------------------------------
+# When synchronising large amounts of data, the rsync process can
+# generate a very high read and write load, which limits the
+# availability of both the local system and any remote servers
+# involved for the duration of the process. This behaviour can be
+# greatly improved by reducing the data transfer rate and taking into
+# account the read and write speed of the media being used. Enter a
+# value between 1 kB/s and 1250000 kB/s in the field below. If the
+# value is 0 or the field is left blank, the maximum available data
+# transfer rate will be used, significantly reducing the availability
+# of the system for the duration of the test.
+# 
+# 0,1 GBit/s    ≙	100 MBit/s	    ≙	12,5 MB/s	≙	12500 kB/s
+# 0,5 GBit/s	≙	500 MBit/s	    ≙	62,5 MB/s	≙	62500 kB/s
+# 1 GBit/s	    ≙	1000 MBit/s	    ≙	125 MB/s	≙	125000 kB/s
+# 2,5 GBit/s	≙	2500 MBit/s	    ≙	312,5 MB/s	≙	312500 kB/s
+# 5 GBit/s	    ≙	5000 MBit/s	    ≙	625 MB/s	≙	625000 kB/s
+# 10 GBit/s	    ≙	10000 Mbit/s    ≙	1250 MB/s	≙	1250000 kB/s
+
+# However, if the [ ionice ] program is located on the local system,
+#[ ionice ] optimises the high read and write load in such a way that
+# the availability of your system and any remote servers involved is
+# guaranteed at all times. To do this, [ ionice ] executes the rsync
+# command in idle mode, sets or determines the priority of the rsync
+# process, and grants it access to the disk only if no other program
+# has requested access for a certain period of time.
+#---------------------------------------------------------------------
+speedlimit="62500"
+
+
+# Delete contents of the recycle bin /@recycle that are older than...
+#---------------------------------------------------------------------
+# Syntax pattern: recycle="30" (default selection)
+#---------------------------------------------------------------------
+# If 0 days is specified, any data deleted in the meantime from the
+# backup source(s) will also be irrevocably deleted from the backup
+# destination. Otherwise, any data deleted in the meantime will be
+# moved to the recycle bin of the destination folder for the specified
+# number of days under /@recycle.
+#---------------------------------------------------------------------
+recycle="30"
+
+
+# Incremental data backup (versioning)
+#---------------------------------------------------------------------
+# Syntax pattern: incremental="true" or "false"
+#---------------------------------------------------------------------
+# Unlike a synchronous backup, an incremental backup stores all
+# changes to the source since the last backup in a separate folder at
+#the destination, sorted by the date and time of the current backup.
+# The recycle bin function is not available..
+#---------------------------------------------------------------------
+incremental="false"
+
+
+# Delete version history older than...
+#--------------------------------------------------------------------- 
+# Syntax pattern: min. versions="2" days. max. versions="365" days
+#---------------------------------------------------------------------
+versions="30"
