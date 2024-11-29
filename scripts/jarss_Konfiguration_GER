@@ -7,17 +7,19 @@ language="ger"
 #-----------------------------------------------------------------------------------------------
 #
 # Scriptaufruf:
-# bash /[ABSOLUTER-PFAD-ZUM-SCRIPT]/jarss.sh --job-name="[DATEINAME]" [--dry-run] [-v] [-vv] [-vvv]
+# bash /[ABSOLUTER-PFAD-ZUM-SCRIPT]/jarss.sh --job-name="[DATEINAME]" [--info=progress2] [--dry-run] [-v] [-vv] [-vvv]
 #
 # --job-name="[DATEINAME]"  Hier den Dateinamen dieses Auftrages eintragen um das Backup
 #                           auszuführen. Beispiel: --job-name="[jarss_Konfiguration_GER]"
-# --info=progress2          Zeigt Informationen über den Gesamtfortschritt der 
+#
+# Optionale Funktionen
+#    --info=progress2       Zeigt Informationen über den Gesamtfortschritt der 
 #                           Dateiübertragung an.
-# --dry-run                 Rsync simuliert nur was passieren würde, ohne das dabei 
+#    --dry-run              Rsync simuliert nur was passieren würde, ohne das dabei 
 #                           Daten kopiert bzw. synchronisiert werden.
-# -v                        Kurzes rsync Protokoll, welche Dateien übertragen werden.
-# -vv                       Erweitertes rsync Protokoll, welche Dateien übersprungen werden. 
-# -vvv                      Sehr umfangreiches rsync Protokoll zum debuggen. 
+#    -v                     Kurzes rsync Protokoll, welche Dateien übertragen werden.
+#    -vv                    Erweitertes rsync Protokoll, welche Dateien übersprungen werden. 
+#    -vvv                   Sehr umfangreiches rsync Protokoll zum debuggen. 
 #
 #-----------------------------------------------------------------------------------------------
 
