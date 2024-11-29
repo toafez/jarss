@@ -7,17 +7,19 @@ language="enu"
 #-----------------------------------------------------------------------------------------------
 #
 # Script call:
-# bash /[ABSOLUTE-PATH-TO-SCRIPT]/jarss.sh --job-name="[FILENAME]" [--dry-run] [-v] [-vv] [-vvv]
+# bash /[ABSOLUTE-PATH-TO-SCRIPT]/jarss.sh --job-name="[FILENAME]" [--info=progress2] [--dry-run] [-v] [-vv] [-vvv]
 #
 # --job-name="[FILENAME]"   Enter the file name of this job here to execute the backup
-#                           execute the backup. Example: --job-name="[jarss_Configuration_ENU]’
-# --info=progress2          Displays information about the overall progress of the
+#                           execute the backup. Example: --job-name="[jarss_Configuration_ENU]"
+#
+# Optional functions
+#    --info=progress2       Displays information about the overall progress of the
 #                           file transfer.
-# --dry-run                 Rsync only simulates what would happen if no data were
+#    --dry-run              Rsync only simulates what would happen if no data were
 #                           copied or synchronised.
-# -v                        Short rsync protocol, which files are transferred.
-# -vv                       Extended rsync protocol, which files are skipped. 
-# -vvv                      Very long rsync log for debugging. 
+#    -v                     Short rsync protocol, which files are transferred.
+#    -vv                    Extended rsync protocol, which files are skipped. 
+#    -vvv                   Very long rsync log for debugging. 
 #
 #-----------------------------------------------------------------------------------------------
 
