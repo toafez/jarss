@@ -1,6 +1,6 @@
 #!/bin/bash
 # Filename: jarss_Konfiguration_GER - coded in utf-8
-jobconfig_version="1.0-000"
+jobconfig_version="1.0-100"
 language="ger"
 #-----------------------------------------------------------------------------------------------
 # jarss - just another rsync shell script
@@ -21,6 +21,16 @@ language="ger"
 #    -vv                    Erweitertes rsync Protokoll, welche Dateien übersprungen werden. 
 #    -vvv                   Sehr umfangreiches rsync Protokoll zum debuggen. 
 #
+#-----------------------------------------------------------------------------------------------
+
+
+# WICHTIGE HINWEISE...
+#-----------------------------------------------------------------------------------------------
+# Bei internen oder extern angeschlossenen Datenspeichern genügt die Angabe der lokalen
+# Datensicherungsquelle(n) sowie des Zielverzeichnisses. Befinden sich die Datensicherungs-
+# quelle(n) oder das Zielverzeichnis jedoch auf einem entfernten Server im Netzwerk oder im
+# Internet, so sind nachfolgend, je nach Sicherungsart (Pull oder Push) die entsprechende
+# Adresse des entfernten Servers sowie Angaben zur SSH-Public-Key-Authentifizierung anzugeben.
 #-----------------------------------------------------------------------------------------------
 
 

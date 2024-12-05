@@ -1,6 +1,6 @@
 #!/bin/bash
 # Filename: jarss.sh - coded in utf-8
-script_version="1.0-000"
+script_version="1.0-100"
 
 #           jarss - just another rsync shell script
 #
@@ -81,6 +81,7 @@ if [[ ${exit_code} -eq 0 ]]; then
 		txt_ssh_set_local=" - A local backup will be performed."
 		txt_ssh_set_pull=" - Performing a pull backup from a remote server. The connection is being checked..."
 		txt_ssh_set_push=" - Doing a push backup to a remote server. Checking the connection..."
+		txt_ssh_set_failed=" - Configuration error: Either a pull OR a push backup can be performed."
 		txt_ssh_test_success=" - The SSH connection test to the remote server was successful. Connecting..."
 		txt_ssh_test_push_line_1=" - Note: During a push backup to a remote server, the permissions in the"
 		txt_ssh_test_push_line_2="   backup target will be set to 755 for directories and 644 for files."
@@ -116,6 +117,7 @@ if [[ ${exit_code} -eq 0 ]]; then
 		txt_ssh_set_local=" - Eine lokale Sicherung wird durchgeführt."
 		txt_ssh_set_pull=" - Ein (Pull)-Backup von einem Remote Server wird durchgeführt. Die Verbindung wird überprüft..."
 		txt_ssh_set_push=" - Ein (Push)-Backup auf einen Remote Server wird durchgeführt. Die Verbindung wird überprüft..."
+		txt_ssh_set_failed=" - Konfigurationsfehler: Es kann entweder ein Pull- ODER ein Push-Backup durchgeführt werden."
 		txt_ssh_test_success=" - Der SSH-Verbindungstest zum Remote-Server war erfolgreich. Verbinde..."
 		txt_ssh_test_push_line_1=" - Hinweis: Während eines (Push)-Backups auf einem Remote Server werden die Berechtigungen"
 		txt_ssh_test_push_line_2="   im Sicherungsziel auf 755 für Verzeichnisse und 644 für Dateien gesetzt."
@@ -209,6 +211,14 @@ if [[ ${exit_code} -eq 0 ]]; then
 		echo "${txt_ssh_set_push}" | tee -a "${logfile}"
 		ssh="ssh -p ${sshport} -i ~/.ssh/${privatekey} ${sshuser}@${sshpush}"
 		connectiontype="sshpush"
+	fi
+
+	# If pull and push settings have been selected 
+	if [ -n "${sshpush}" ] && [ -n "${sshpull}" ]; then
+		echo "${txt_ssh_set_failed}" | tee -a "${logfile}"
+		echo "${hr}" | tee -a "${logfile}"
+		echo "$(timestamp) ${txt_rsync_job_executed}" | tee -a "${logfile}"
+		exit_code=1
 	fi
 fi
 

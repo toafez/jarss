@@ -1,7 +1,16 @@
 jarss Release Notes
 
+Version 1.0-100 vom 05.12.2024
+ - Deutsch
+    - In den Konfigurationsdateien wurden "Wichtige Hinweise" hinzugefügt, die darüber informieren, welche Einstellungen für ein lokales, Pull- oder Push-Backup vorgenommen werden müssen.
+    - Im jarss Backup-Skript wurde eine Abfrage hinzugefügt, die zu einem Abbruch führt, wenn in der Konfiguration sowohl ein Pull- als auch ein Push-Backup ausgewählt wurde, d.h. wenn sowohl die Variable sshpull als auch die Variable sshpush Werte enthalten.
+ - English
+    - Important Notes' have been added to the configuration files to provide information on the settings required for a local, pull or push backup.
+    - A query has been added to the jarss backup script that causes an abort if both a pull and push backup are selected in the configuration, i.e. if both the sshpull and sshpush variables contain values.
+
+
 Version 1.0-000 vom 28.11.2024
- -Deutsch
+ - Deutsch
     - Veröffentlichung von jarss (just another rsync shell script)
- -English
+ - English
     - Release of jarss (just another rsync shell script)

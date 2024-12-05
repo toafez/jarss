@@ -1,6 +1,6 @@
 #!/bin/bash
 # Filename: jarss_Configuration_ENU - coded in utf-8
-jobconfig_version="1.0-000"
+jobconfig_version="1.0-100"
 language="enu"
 #-----------------------------------------------------------------------------------------------
 # jarss - just another rsync shell script
@@ -21,6 +21,16 @@ language="enu"
 #    -vv                    Extended rsync protocol, which files are skipped. 
 #    -vvv                   Very long rsync log for debugging. 
 #
+#-----------------------------------------------------------------------------------------------
+
+
+# IMPORTANT NOTE...
+#-----------------------------------------------------------------------------------------------
+# For internal or external storage devices, it is sufficient to specify the local backup
+# source(s) and destination directory. However, if the backup source(s) or destination directory
+# are located on a remote server in the network or on the Internet, the corresponding address of
+# the remote server and SSH public key authentication details must be specified below, depending
+# on the type of backup (pull or push). 
 #-----------------------------------------------------------------------------------------------
 
 
