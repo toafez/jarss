@@ -34,11 +34,13 @@ Then open one of the two configuration files jarss_Konfiguration_GER (in German)
 ## Calling the execution script and the configuration file
 jarss obtains its information for performing a backup from a separately created configuration file, the name of which is arbitrary and has no defined extension. In this way it is possible to create and run several different configurations for different tasks. It is only necessary to ensure that the jarss execution script and the configuration file(s) are in the same directory. The script is best invoked with the absolute path prefixed, although the relative path will suffice if you are in the same directory as the script and the configuration file(s).
 
+#### _Note: Text in square brackets is a placeholder and must be replaced with your own information, but may be used in some places for information purposes only. Please note that the square brackets are part of the placeholder and must also be removed when replacing with your own information._
+
 ```bash /[ABSOLUTE-PATH-TO-SCRIPT]/jarss.sh --job-name="[FILENAME]" [--info=progress2] [--dry-run] [-v] [-vv] [-vvv]```
 
 ```
 --job-name="[FILENAME]"     Enter the filename of this job to run the backup.
-                            Example: --job-name="[jarss_Configuration_ENU]"
+                            Example: --job-name="jarss_Configuration_ENU"
                             
 Optional functions
     --info=progress2        Displays information about the overall progress of the file transfer.
