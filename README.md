@@ -1,4 +1,4 @@
-[English](README_en.md) | Deutsch
+Deutsch | [English](README_en.md)
 
 # jarss (just another rsync shell script) 
 [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Ftoafez%2Fjarss&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
@@ -34,11 +34,13 @@ Lade die [ZIP-Datei](https://github.com/toafez/jarss/archive/refs/heads/main.zip
 ## Aufruf des Ausführungsskript und der Konfigurationsdatei
 jarss erhält seine Informationen zur Durchführung einer Datensicherung über eine separat zu erstellende Konfigurationsdatei, deren Dateiname frei wählbar ist und keine definierte Dateiendung besitzt. Auf diese Weise ist es möglich, mehrere verschiedene Konfigurationen für unterschiedliche Aufgaben zu erstellen und auszuführen. Es ist nur darauf zu achten, dass sich das jarss-Ausführungsskript und die Konfigurationsdatei(en) im selben Verzeichnis befinden. Der Aufruf des Skripts erfolgt am besten durch Voranstellen des absoluten Pfades, wobei auch der relative Pfad genügt, wenn man sich selbst im gleichen Verzeichnis wie das Skript und die Konfigurationsdatei(en) befindet.
 
+#### _Hinweis: Texte innerhalb eckiger Klammern dienen als Platzhalter und müssen durch eigene Angaben ersetzt werden, können aber an einigen Stellen auch nur der Information dienen. Es ist zu beachten, dass die eckigen Klammern Teil des Platzhalters sind und beim Ersetzen durch eigene Angaben ebenfalls entfernt werden müssen._
+
 ```bash /[ABSOLUTER-PFAD-ZUM-SCRIPT]/jarss.sh --job-name="[DATEINAME]" [--info=progress2] [--dry-run] [-v] [-vv] [-vvv]```
 
 ```
 --job-name="[DATEINAME]"     Hier den Dateinamen dieses Auftrages eintragen um das Backup auszuführen.
-                             Beispiel: --job-name="[jarss_Konfiguration_GER]"
+                             Beispiel: --job-name="jarss_Konfiguration_GER"
 
 Optionale Funktionen
     --info=progress2         Zeigt Informationen über den Gesamtfortschritt der Dateiübertragung an.
