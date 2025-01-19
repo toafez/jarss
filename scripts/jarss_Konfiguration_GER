@@ -161,13 +161,19 @@ speedlimit="62500"
 
 # Inhalt des Papierkorbs /@recycle löschen, der älter ist als...
 #---------------------------------------------------------------------
-# Syntaxmuster: recycle="30" (Standardauswahl)
+# Syntaxmuster: recycle="false", "30" (Standardauswahl) oder "true"
 #---------------------------------------------------------------------
-# Bei Angabe von 0 Tagen werden alle in der Zwischenzeit aus der/den
-# Sicherungsquelle(n) gelöschten Daten auch im Sicherungsziel
-# unwiderruflich gelöscht. Andernfalls werden die zwischenzeitlich
-# gelöschten Daten für die angegebene Zeit in Tagen in den Papierkorb
-# unter /@recycle des Zielordners verschoben.
+# Wird für recycle= der Wert "false" angegeben, so werden alle
+# zwischenzeitlich gelöschten Daten der Sicherungsquelle(n) auch im
+#  Sicherungsziel unwiderruflich gelöscht. Wird für recycle= ein
+# numerischer Wert von mindestens 1 angegeben, so werden
+# zwischenzeitlich gelöschte Daten der Sicherungsquelle(n) für die
+# angegebene Zeit in Tagen in den Papierkorb unter /@recycle des
+# Zielordners verschoben, bevor sie unwiderruflich gelöscht werden.
+# Wird für recycle= der Wert "true" angegeben, so werden
+# zwischenzeitlich gelöschte Daten der Sicherungsquelle(n) immer in
+# den Papierkorb unter /@recycle des Zielordners verschoben, ohne dass
+# sie zukünftig gelöscht werden. 
 #---------------------------------------------------------------------
 recycle="30"
 

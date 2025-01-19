@@ -153,15 +153,21 @@ exclude="--delete-excluded --exclude=@eaDir/*** --exclude=@Logfiles/*** --exclud
 speedlimit="62500"
 
 
-# Delete contents of the recycle bin /@recycle that are older than...
+## Delete contents of the recycle bin /@recycle that are older than...
 #---------------------------------------------------------------------
-# Syntax pattern: recycle="30" (default selection)
+# Syntax pattern: recycle="false", "30" (default selection) or "true"
 #---------------------------------------------------------------------
-# If 0 days is specified, any data deleted in the meantime from the
-# backup source(s) will also be irrevocably deleted from the backup
-# destination. Otherwise, any data deleted in the meantime will be
-# moved to the recycle bin of the destination folder for the specified
-# number of days under /@recycle.
+# If 'false' is specified for recycle=, any data from the backup
+# source(s) that has been deleted in the meantime will also be
+# irrevocably deleted from the backup destination. If recycle= is
+# specified as a numeric value of at least 1, data from the backup
+# source(s) that has been deleted in the meantime will be moved to the
+# recycle bin under /@recycle of the destination folder for the
+# specified time in days before being irrevocably deleted. If the
+# value of recycle= is 'true', data from the backup source(s) that has
+# been deleted in the meantime will always be moved to the recycle bin
+# under /@recycle of the destination folder without being deleted in
+# the future. 
 #---------------------------------------------------------------------
 recycle="30"
 

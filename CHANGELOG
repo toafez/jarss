@@ -7,11 +7,21 @@ Version 1.0-...
 
  - Deutsch
     - In den Konfigurationsdateien wurde irrtümlich ein Höchstwert von 365 Tagen für die Aufbewahrung von Versionen angegeben. Die Angabe wurde entfernt und die betreffenden Textstellen überarbeitet.
-    - Anzeigefehler in der rsync-Fehleranalyse nach rsync-Lauf in der jarss.sh Datei behoben
+    - Anzeigefehler in der rsync-Fehleranalyse nach rsync-Lauf in der jarss.sh Datei behoben.
+    - Die Konfiguration der Papierkorb-Funktion (/@recycle) lässt neben numerischen Werten nun auch die Werte "true" und "false" zu.
+      recycle="false" - Zwischenzeitlich gelöschten Daten der Sicherungsquelle(n) werden auch im Sicherungsziel unwiderruflich gelöscht.
+      recycle="30"    - Zwischenzeitlich gelöschten Daten der Sicherungsquelle(n) werden in den Ordner /@recycle, des Sicherungsziels verschoben. Daten aus dem Ordner /@recycle, die älter als 30 Tage waren, wurden gelöscht.
+      recycle="true"  - Zwischenzeitlich gelöschte Daten der Sicherungsquelle(n) werden in den Ordner /@recycle des Sicherungsziels verschoben. Aus dem Ordner /@recycle werden keine Daten mehr gelöscht.
+    - Bei einem Push-Backups trat ein Verarbeitungsfehler bei der Ermittlung zu löschender Daten aus dem Ordner /@recycle auf, wesahlb keine Daten gelöscht wurden. Fehler wurde behoben.
 
  - English
     - The configuration files incorrectly specified a maximum value of 365 days for version retention. The information has been removed and the relevant text has been revised.
-    - Fixed display error in rsync error analysis after rsync run in jarss.sh file
+    - Fixed display error in rsync error analysis after rsync run in jarss.sh file.
+    - The configuration of the recycle bin function (/@recycle) now allows the values 'true' and 'false' in addition to numeric values.
+      recycle='false' - Data from the backup source(s) that has been deleted in the meantime will also be irrevocably deleted from the backup destination.
+      recycle='30' - Deleted data from the backup source(s) will be moved to the /@recycle folder of the backup destination. Data older than 30 days in the /@recycle folder will be deleted.
+      recycle='true' - Deleted data from the backup source(s) will be moved to the /@recycle folder of the backup destination. No more data will be deleted from the /@recycle folder.
+    - During a push backup, a processing error occurred when determining the data to be deleted from the /@recycle folder, so no data was deleted. The error has been fixed.
 
 
 Version 1.0-100 vom 05.12.2024

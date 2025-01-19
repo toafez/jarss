@@ -102,7 +102,11 @@ if [[ ${exit_code} -eq 0 ]]; then
 		txt_speed_ionice_line_1=" - The [ ionice ] program optimises the read and write speed of the rsync process"
 		txt_speed_ionice_line_2="  to ensure system availability during the backup!"
 		txt_rsync_job_executed="The job has been completed..."
-		txt_recycle_note=" - Data older than ${recycle} days has been deleted from the /@recycle folder."
+		cycle_note_num_1=" - Data from the backup source(s) that has been deleted in the meantime will be moved to the /@recycle folder"
+		txt_recycle_note_num_2="   of the backup destination. Data older than ${recycle} days in the /@recycle folder has been deleted."
+		txt_recycle_note_true_1=" - Data from the backup source(s) that has been deleted in the meantime will be moved to the /@recycle folder"
+		txt_recycle_note_true_2="    of the backup destination. The data in the /@recycle folder is not automatically deleted."
+		txt_recycle_note_false=" - Any data from the backup source(s) that has since been deleted will also be irrevocably deleted from the backup destination."
 		txt_incremental_new_entry=" - Another incremental version folder has been added to the destination folder."
 		txt_incremental_add_failed=" - Warning: Adding an incremental version folder to the destination folder failed"
 		txt_incremental_del_success=" - Data older than ${versions} days was deleted from the incremental version folder."
@@ -138,7 +142,11 @@ if [[ ${exit_code} -eq 0 ]]; then
 		txt_speed_ionice_line_1=" - Das Programm [ ionice ] optimiert die Lese- und Schreibgeschwindigkeit des rsync-Prozesses"
 		txt_speed_ionice_line_2="   um die Verfügbarkeit des Systems während der Datensicherung zu gewährleisten!"
 		txt_rsync_job_executed="Der Auftrag wird abgeschlossen..."
-		txt_recycle_note=" - Daten aus dem Ordner /@recycle, die älter als ${recycle} Tage waren, wurden gelöscht."
+		txt_recycle_note_num_1=" - Zwischenzeitlich gelöschten Daten der Sicherungsquelle(n) werden in den Ordner /@recycle, des Sicherungsziels"
+		txt_recycle_note_num_2="   verschoben. Daten aus dem Ordner /@recycle, die älter als ${recycle} Tage waren, wurden gelöscht."
+		txt_recycle_note_true_1=" - Zwischenzeitlich gelöschte Daten der Sicherungsquelle(n) werden in den Ordner /@recycle des"
+		txt_recycle_note_true_2="   Sicherungsziels verschoben. Die Daten im Ordner /@recycle werden nicht automatisch gelöscht."
+		txt_recycle_note_false=" - Zwischenzeitlich gelöschten Daten der Sicherungsquelle(n) werden auch im Sicherungsziel unwiderruflich gelöscht."
 		txt_incremental_new_entry=" - Ein weiterer inkrementeller Versionsordner wurde dem Sicherungsziel hinzugefügt."
 		txt_incremental_add_failed=" - Warnung: Das Hinzufügen eines inkrementellen Versionsordners zum Sicherungsziel ist fehlgeschlagen."
 		txt_incremental_del_success=" - Daten aus dem inkrementellen Versionsordner, die älter als ${versions} Tage sind, wurden gelöscht."
@@ -286,8 +294,11 @@ if [[ ${exit_code} -eq 0 ]]; then
 			fi
 		fi
 
-		# If the number of days in the Recycle Bin function is not 0, create a restore point.
-		if [ -n "${recycle}" ] && [[ "${recycle}" -ne 0 ]]; then
+		# If the number of days in the recycle bin is a number and not 0 or true, create a restore point.
+		is_number="^[0-9]+$"
+		if [ -n "${recycle}" ] && [[ "${recycle}" -ne 0 ]] && [[ "${recycle}" =~ ${is_number} ]]; then
+			backup="--backup --backup-dir=@recycle/${datetime}"
+		elif [ -n "${recycle}" ] && [[ "${recycle}" == "true" ]]; then
 			backup="--backup --backup-dir=@recycle/${datetime}"
 		fi
 	fi
@@ -472,7 +483,7 @@ fi
 if [[ ${exit_code} -eq 0 ]]; then
 	if [ -z "${incremental}" ] || [[ "${incremental}" == "false" ]]; then
 
-		if [ -n "${recycle}" ] && [[ "${recycle}" -ne 0 ]]; then
+		if [ -n "${recycle}" ] && [[ "${recycle}" -ne 0 ]] && [[ "${recycle}" =~ ${is_number} ]]; then
 
 			# If the connectiontype is local or sshpull...
 			if [ -z "${dryrun}" ] && [[ "${connectiontype}" == "sshpull" || "${connectiontype}" == "local" ]]; then
@@ -481,7 +492,8 @@ if [[ ${exit_code} -eq 0 ]]; then
 				if [ -d "${target%/*}/@recycle" ]; then
 					find "${target%/*}/@recycle/"* -maxdepth 0 -type d -mtime +${recycle} -print0 | xargs -0 rm -r 2>/dev/null
 					if [[ ${?} -eq 0 ]]; then
-						echo "${txt_recycle_note}" | tee -a "${logfile}"
+						echo "${txt_recycle_note_num_1}" | tee -a "${logfile}"
+						echo "${txt_recycle_note_num_2}" | tee -a "${logfile}"
 					fi
 				fi
 			fi
@@ -494,12 +506,18 @@ if [[ ${exit_code} -eq 0 ]]; then
 
 				# If the remote folder exists, then execute the find command
 				if ${ssh} test -d "'${at_recycle}'"; then
-					${ssh} "find '${at_recycle}' -maxdepth 0 -type d -mtime +${recycle} -print0 | xargs -0 rm -r" 2>/dev/null
+					${ssh} "find '${at_recycle}'/* -maxdepth 0 -type d -mtime +${recycle} -print0 | xargs -0 rm -r" 2>/dev/null
 					if [[ ${?} -eq 0 ]]; then
-						echo "${txt_recycle_note}" | tee -a "${logfile}"
+						echo "${txt_recycle_note_num_1}" | tee -a "${logfile}"
+						echo "${txt_recycle_note_num_2}" | tee -a "${logfile}"
 					fi
 				fi
 			fi
+		elif [ -n "${recycle}" ] && [[ "${recycle}" == "true" ]]; then
+			echo "${txt_recycle_note_true_1}" | tee -a "${logfile}"
+			echo "${txt_recycle_note_true_2}" | tee -a "${logfile}"
+		elif [ -n "${recycle}" ] && [[ "${recycle}" == "false" ]]; then
+			echo "${txt_recycle_note_false}" | tee -a "${logfile}"
 		fi
 	fi
 fi
