@@ -166,20 +166,24 @@ speedlimit="62500"
 recycle="30"
 
 
-# Incremental data backup (versioning)
+# Incremental data backup
 #---------------------------------------------------------------------
 # Syntax pattern: incremental="true" or "false"
 #---------------------------------------------------------------------
 # Unlike a synchronous backup, an incremental backup stores all
-# changes to the source since the last backup in a separate folder at
-#the destination, sorted by the date and time of the current backup.
-# The recycle bin function is not available..
+# changes made to the source since the last backup in a separate folder
+# at the destination, sorted by the date and time of the current
+# backup. The recycle bin function (/@recycle) is not available here.
 #---------------------------------------------------------------------
 incremental="false"
 
 
-# Delete version history older than...
-#--------------------------------------------------------------------- 
-# Syntax pattern: min. versions="2" days. max. versions="365" days
+# Delete incremental versions
+#---------------------------------------------------------------------
+# Syntax pattern: versions="30" (default selection)
+#---------------------------------------------------------------------
+# For incremental backups, a time in days is specified to determine
+# when older versions of the backup should be deleted. The time value
+# must be at least 2 days.
 #---------------------------------------------------------------------
 versions="30"

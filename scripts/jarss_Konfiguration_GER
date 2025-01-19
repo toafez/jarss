@@ -172,21 +172,25 @@ speedlimit="62500"
 recycle="30"
 
 
-# Inkrementelle Datensicherung (Versionierung)
+# Inkrementelle Datensicherung
 #---------------------------------------------------------------------
 # Syntaxmuster: incremental="true" oder "false"
 #---------------------------------------------------------------------
 # Im Gegensatz zu einer synchronen Datensicherung werden bei einer
-# inkrementellen Datensicherung alle Änderungen an der Quelle seit der
-# letzten Sicherung in einem separaten Ordner im Ziel gespeichert, der
-# nach Datum und Uhrzeit der aktuellen Sicherung sortiert ist. Die
-# Papierkorbfunktion steht hier nicht zur Verfügung.
+# inkrementellen Datensicherung alle Änderungen in der Quelle seit der
+# letzten Sicherung in einem separaten Ordner im Ziel gespeichert,
+# sortiert nach Datum und Uhrzeit der aktuellen Sicherung. Die
+# Papierkorb-Funktion (/@recycle) steht hier nicht zur Verfügung.
 #---------------------------------------------------------------------
 incremental="false"
 
 
-# Versionsgeschichte löschen, die älter ist als... 
+# Inkrementelle Versionsstände löschen
 #---------------------------------------------------------------------
-# Syntaxmuster: min. versions="2" Tage max. versions="365" Tage
+# Syntaxmuster: versions="30" (Standardauswahl)
+#---------------------------------------------------------------------
+# Bei der inkrementellen Datensicherung wird nach Angabe einer Zeit in
+# Tagen festgelegt, ab wann ältere Versionsstände der Datensicherung
+# gelöscht werden sollen.Der Zeitwert muss mindestens 2 Tage betragen.
 #---------------------------------------------------------------------
 versions="30"

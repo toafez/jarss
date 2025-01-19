@@ -1,5 +1,17 @@
 jarss Release Notes
 
+
+Version 1.0-... 
+    Eine vorläufige Version, die sich zur Zeit noch in Bearbeitung befindet.
+    A preliminary version that is still under construction.
+
+ - Deutsch
+    - In den Konfigurationsdateien wurde irrtümlich ein Höchstwert von 365 Tagen für die Aufbewahrung von Versionen angegeben. Die Angabe wurde entfernt und die betreffenden Textstellen überarbeitet.
+
+ - English
+    - The configuration files incorrectly specified a maximum value of 365 days for version retention. The information has been removed and the relevant text has been revised.
+
+
 Version 1.0-100 vom 05.12.2024
  - Deutsch
     - In den Konfigurationsdateien wurden "Wichtige Hinweise" hinzugefügt, die darüber informieren, welche Einstellungen für ein lokales, Pull- oder Push-Backup vorgenommen werden müssen.
