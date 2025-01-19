@@ -7,9 +7,11 @@ Version 1.0-...
 
  - Deutsch
     - In den Konfigurationsdateien wurde irrtümlich ein Höchstwert von 365 Tagen für die Aufbewahrung von Versionen angegeben. Die Angabe wurde entfernt und die betreffenden Textstellen überarbeitet.
+    - Anzeigefehler in der rsync-Fehleranalyse nach rsync-Lauf in der jarss.sh Datei behoben
 
  - English
     - The configuration files incorrectly specified a maximum value of 365 days for version retention. The information has been removed and the relevant text has been revised.
+    - Fixed display error in rsync error analysis after rsync run in jarss.sh file
 
 
 Version 1.0-100 vom 05.12.2024

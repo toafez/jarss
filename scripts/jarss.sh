@@ -454,7 +454,7 @@ if [[ ${exit_code} -eq 0 ]]; then
 		if [[ "${rsync_exit_code}" -ne 0 ]]; then
 			echo "" | tee -a "${logfile}"
 			echo "${txt_rsync_error_line_1} ${rsync_exit_code}!" | tee -a "${logfile}"
-			echo "${txt_rsync_error_line_1}" | tee -a "${logfile}"
+			echo "${txt_rsync_error_line_2}" | tee -a "${logfile}"
 			echo "" | tee -a "${logfile}"
 			exit_code=1
 		else
