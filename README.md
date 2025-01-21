@@ -34,7 +34,7 @@ Lade die [ZIP-Datei](https://github.com/toafez/jarss/archive/refs/heads/main.zip
 ## Aufruf des Ausführungsskript und der Konfigurationsdatei
 jarss erhält seine Informationen zur Durchführung einer Datensicherung über eine separat zu erstellende Konfigurationsdatei, deren Dateiname frei wählbar ist und keine definierte Dateiendung besitzt. Auf diese Weise ist es möglich, mehrere verschiedene Konfigurationen für unterschiedliche Aufgaben zu erstellen und auszuführen. Es ist nur darauf zu achten, dass sich das jarss-Ausführungsskript und die Konfigurationsdatei(en) im selben Verzeichnis befinden. Der Aufruf des Skripts erfolgt am besten durch Voranstellen des absoluten Pfades, wobei auch der relative Pfad genügt, wenn man sich selbst im gleichen Verzeichnis wie das Skript und die Konfigurationsdatei(en) befindet.
 
-#### _Hinweis: Texte innerhalb eckiger Klammern dienen als Platzhalter und müssen durch eigene Angaben ersetzt werden, können aber an einigen Stellen auch nur der Information dienen. Es ist zu beachten, dass die eckigen Klammern Teil des Platzhalters sind und beim Ersetzen durch eigene Angaben ebenfalls entfernt werden müssen._
+#### _Hinweis: Text in Großbuchstaben innerhalb eckiger Klammern dient als Platzhalter und muss durch eigene Angaben ersetzt werden, während gemischter Text aus Groß- und Kleinbuchstaben, Ziffern und Sonderzeichen innerhalb eckiger Klammern optional verwendet werden kann. In jedem Fall müssen die eckigen Klammern beim Ersetzen von Platzhaltern oder bei der Verwendung einer Option entfernt werden._
 
 ```bash /[ABSOLUTER-PFAD-ZUM-SCRIPT]/jarss.sh --job-name="[DATEINAME]" [--info=progress2] [--dry-run] [-v] [-vv] [-vvv]```
 

@@ -1,10 +1,15 @@
 #!/bin/bash
 # Filename: jarss_Configuration_ENU - coded in utf-8
-jobconfig_version="1.0-100"
+jobconfig_version="1.0-200"
 language="enu"
 #-----------------------------------------------------------------------------------------------
 # jarss - just another rsync shell script
 #-----------------------------------------------------------------------------------------------
+#
+# Important note: Uppercase text within square brackets acts as a wildcard and must be replaced
+# with your own text, while mixed text consisting of uppercase and lowercase letters, numbers,
+# and special characters within square brackets is optional. In any case, the square brackets
+# must be removed when replacing wildcards or using an option.
 #
 # Script call:
 # bash /[ABSOLUTE-PATH-TO-SCRIPT]/jarss.sh --job-name="[FILENAME]" [--info=progress2] [--dry-run] [-v] [-vv] [-vvv]

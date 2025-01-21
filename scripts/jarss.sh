@@ -1,6 +1,6 @@
 #!/bin/bash
 # Filename: jarss.sh - coded in utf-8
-script_version="1.0-100"
+script_version="1.0-200"
 
 #           jarss - just another rsync shell script
 #
@@ -354,18 +354,16 @@ if [[ ${exit_code} -eq 0 ]]; then
 	echo "${txt_rsync_target_success}" | tee -a "${logfile}"
 
 	# If the ionice program is installed, use it, otherwise use the rsync bandwidth limitation
-	if ! command -v . ./ionice 2>&1 >/dev/null; then
-		if [ -n "${speedlimit}" ] && [[ "${speedlimit}" -gt 0 ]]; then
-			echo "${txt_speed_limited} ${speedlimit} kB/s" | tee -a "${logfile}"
-			bandwidth="--bwlimit=${speedlimit}"
-		else
-			echo "${txt_speed_unlimited_line_1}" | tee -a "${logfile}"
-			echo "${txt_speed_unlimited_line_2}" | tee -a "${logfile}"
-		fi
-	else
+	if command -v ionice 2>&1 >/dev/null; then
 		echo "${txt_speed_ionice_line_1}" | tee -a "${logfile}"
 		echo "${txt_speed_ionice_line_2}" | tee -a "${logfile}"
 		ionice="ionice -c 3"
+	elif [ -n "${speedlimit}" ] && [[ "${speedlimit}" -gt 0 ]]; then
+		echo "${txt_speed_limited} ${speedlimit} kB/s" | tee -a "${logfile}"
+		bandwidth="--bwlimit=${speedlimit}"
+	else
+		echo "${txt_speed_unlimited_line_1}" | tee -a "${logfile}"
+		echo "${txt_speed_unlimited_line_2}" | tee -a "${logfile}"
 	fi
 	
 	#---------------------------------------------------------------------

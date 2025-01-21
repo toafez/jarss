@@ -1,9 +1,7 @@
 jarss Release Notes
 
 
-Version 1.0-... 
-    Eine vorläufige Version, die sich zur Zeit noch in Bearbeitung befindet.
-    A preliminary version that is still under construction.
+Version 1.0-200 vom 21.01.2025
 
  - Deutsch
     - In den Konfigurationsdateien wurde irrtümlich ein Höchstwert von 365 Tagen für die Aufbewahrung von Versionen angegeben. Die Angabe wurde entfernt und die betreffenden Textstellen überarbeitet.
@@ -13,6 +11,8 @@ Version 1.0-...
       recycle="30"    - Zwischenzeitlich gelöschten Daten der Sicherungsquelle(n) werden in den Ordner /@recycle, des Sicherungsziels verschoben. Daten aus dem Ordner /@recycle, die älter als 30 Tage waren, wurden gelöscht.
       recycle="true"  - Zwischenzeitlich gelöschte Daten der Sicherungsquelle(n) werden in den Ordner /@recycle des Sicherungsziels verschoben. Aus dem Ordner /@recycle werden keine Daten mehr gelöscht.
     - Bei einem Push-Backups trat ein Verarbeitungsfehler bei der Ermittlung zu löschender Daten aus dem Ordner /@recycle auf, wesahlb keine Daten gelöscht wurden. Fehler wurde behoben.
+    - Es gab einen Fehler bei der Auswertung, ob das Programm ionice auf dem System verfügbar ist oder nicht, was je nach Ergebnis zu einem rsync-Fehler 127 führte. Fehler wurde behoben.
+    - In den Konfigurationsdateien wurde ein Hinweis auf die Verwendung von Platzhaltern und Optionen in eckigen Klammern aufgenommen, um Eingabefehler zu minimieren.
 
  - English
     - The configuration files incorrectly specified a maximum value of 365 days for version retention. The information has been removed and the relevant text has been revised.
@@ -22,19 +22,25 @@ Version 1.0-...
       recycle='30' - Deleted data from the backup source(s) will be moved to the /@recycle folder of the backup destination. Data older than 30 days in the /@recycle folder will be deleted.
       recycle='true' - Deleted data from the backup source(s) will be moved to the /@recycle folder of the backup destination. No more data will be deleted from the /@recycle folder.
     - During a push backup, a processing error occurred when determining the data to be deleted from the /@recycle folder, so no data was deleted. The error has been fixed.
+    - An error occurred when evaluating whether the ionice program was available on the system or not, resulting in an rsync error 127 depending on the result. This bug has been fixed.
+    - A note on the use of placeholders and options in square brackets has been added to the configuration files to minimize typos.
 
 
 Version 1.0-100 vom 05.12.2024
+
  - Deutsch
     - In den Konfigurationsdateien wurden "Wichtige Hinweise" hinzugefügt, die darüber informieren, welche Einstellungen für ein lokales, Pull- oder Push-Backup vorgenommen werden müssen.
     - Im jarss Backup-Skript wurde eine Abfrage hinzugefügt, die zu einem Abbruch führt, wenn in der Konfiguration sowohl ein Pull- als auch ein Push-Backup ausgewählt wurde, d.h. wenn sowohl die Variable sshpull als auch die Variable sshpush Werte enthalten.
+
  - English
     - Important Notes' have been added to the configuration files to provide information on the settings required for a local, pull or push backup.
     - A query has been added to the jarss backup script that causes an abort if both a pull and push backup are selected in the configuration, i.e. if both the sshpull and sshpush variables contain values.
 
 
 Version 1.0-000 vom 28.11.2024
+
  - Deutsch
     - Veröffentlichung von jarss (just another rsync shell script)
+
  - English
     - Release of jarss (just another rsync shell script)

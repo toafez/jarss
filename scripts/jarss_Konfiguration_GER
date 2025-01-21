@@ -1,10 +1,16 @@
 #!/bin/bash
 # Filename: jarss_Konfiguration_GER - coded in utf-8
-jobconfig_version="1.0-100"
+jobconfig_version="1.0-200"
 language="ger"
 #-----------------------------------------------------------------------------------------------
 # jarss - just another rsync shell script
 #-----------------------------------------------------------------------------------------------
+#
+# Wichtiger Hinweis: Text in Großbuchstaben innerhalb eckiger Klammern dient als Platzhalter und
+# muss durch eigene Angaben ersetzt werden, während gemischter Text aus Groß- und
+# Kleinbuchstaben, Ziffern und Sonderzeichen innerhalb eckiger Klammern optional verwendet
+# werden kann. In jedem Fall müssen die eckigen Klammern beim Ersetzen von Platzhaltern oder bei
+# der Verwendung einer Option entfernt werden.
 #
 # Scriptaufruf:
 # bash /[ABSOLUTER-PFAD-ZUM-SCRIPT]/jarss.sh --job-name="[DATEINAME]" [--info=progress2] [--dry-run] [-v] [-vv] [-vvv]
