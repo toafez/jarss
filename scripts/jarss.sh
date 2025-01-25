@@ -3,7 +3,7 @@
 script_version="1.0-200"
 
 #         jarss - just another rsync shell script
-#    Copyright (C) 2024 by tommes (toafez) | MIT License
+#    Copyright (C) 2025 by tommes (toafez) | MIT License
 
 hr="---------------------------------------------------------------------------------------------------"
 
