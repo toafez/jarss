@@ -49,8 +49,3 @@ Optional functions
     -vv                     Extended rsync protocol, which files are skipped.
     -vvv                    Very long rsync log for debugging.
 ```
-
-## Licence
-This is free software. You can redistribute it and/or modify it under the terms of the **GNU General Public License** as published by the Free Software Foundation; either version 3** of the licence, or (at your option) any later version.
-
-This program is distributed in the hope that it will be useful, but **WITHOUT ANY WARRANTY**, even **without the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE**. See the [GNU General Public Licence](LICENSE) file for details.
