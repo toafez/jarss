@@ -102,7 +102,7 @@ if [[ ${exit_code} -eq 0 ]]; then
 		txt_speed_ionice_line_1=" - The [ ionice ] program optimises the read and write speed of the rsync process"
 		txt_speed_ionice_line_2="  to ensure system availability during the backup!"
 		txt_rsync_job_executed="The job has been completed..."
-		cycle_note_num_1=" - Data from the backup source(s) that has been deleted in the meantime will be moved to the /@recycle folder"
+		txt_recycle_note_num_1=" - Data from the backup source(s) that has been deleted in the meantime will be moved to the /@recycle folder"
 		txt_recycle_note_num_2="   of the backup destination. Data older than ${recycle} days in the /@recycle folder has been deleted."
 		txt_recycle_note_true_1=" - Data from the backup source(s) that has been deleted in the meantime will be moved to the /@recycle folder"
 		txt_recycle_note_true_2="    of the backup destination. The data in the /@recycle folder is not automatically deleted."
