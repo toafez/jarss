@@ -366,7 +366,7 @@ if [[ ${exit_code} -eq 0 ]]; then
 		echo "${hr}" | tee -a "${logfile}"
 		echo "$(timestamp) ${txt_rsync_write_log}" | tee -a "${logfile}"
 		echo "${txt_rsync_write_log_source} ${source}" | tee -a "${logfile}"
-		echo "${txt_rsync_write_log_target} ${target}/${source##*/}" | tee -a "${logfile}"
+		echo "${txt_rsync_write_log_target} ${target}${source##*/}" | tee -a "${logfile}"
 		echo "${hr}" | tee -a "${logfile}"
 		if [ -n "${progress}" ]; then
 			echo "${txt_rsync_progress}" | tee -a "${logfile}"
