@@ -294,7 +294,7 @@ if [[ ${exit_code} -eq 0 ]]; then
 
 		# Rewrite target folder and temporarily linked folder
 		init_target="${target}"
-		target="${init_target}${datetime}"
+		target="${init_target}${datetime}/"
 		latest_link="${init_target}latest"
 		link_dest="--link-dest=${latest_link}"
 
