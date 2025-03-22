@@ -1,6 +1,6 @@
 #!/bin/bash
 # Filename: jarss.sh - coded in utf-8
-script_version="1.0-200"
+script_version="1.0-300"
 
 #         jarss - just another rsync shell script
 #    Copyright (C) 2025 by tommes (toafez) | MIT License
@@ -249,9 +249,6 @@ if [[ ${exit_code} -eq 0 ]]; then
 	# Set the current date and time
 	datetime=$(date "+%Y-%m-%d_%Hh-%Mm-%Ss")
 
-	# Escape white spaces with backslash from ${target} and rename variable
-	target=$(echo ${target} | sed -e 's/ /\ /g')
-
 	# Make sure that the target path ends with a slash
 	if [[ "${target:${#target}-1:1}" != "/" ]]; then
 		target="${target}/"
@@ -373,73 +370,119 @@ if [[ ${exit_code} -eq 0 ]]; then
 			echo "" | tee -a "${logfile}"
 		fi
 
-		# If the connectiontype is local
-		if [[ "${connectiontype}" == "local" ]]; then
-			# Local to Local:  rsync [option]... [source]... target
-			${ionice} \
-			rsync \
-			${syncopt} \
-			${progress} \
-			${bandwidth} \
-			${dryrun} \
-			${verbose} \
-			--stats \
-			--delete \
-			${backup} \
-			${exclude} \
-			"${source}" "${target}" ${link_dest} > >(tee -a "${logfile}") 2>&1
-			rsync_exit_code=${?}
-		fi
+        # If the connectiontype is local
+        if [[ "${connectiontype}" == "local" ]]; then
+            # Local to Local:  rsync [option]... [source]... target
+            if [ -n "${incremental}" ] && [[ "${incremental}" == "true" ]]; then
+                ${ionice} \
+                rsync \
+                ${syncopt} \
+                ${progress} \
+                ${bandwidth} \
+                ${dryrun} \
+                ${verbose} \
+                --stats \
+                --delete \
+                ${backup} \
+                ${exclude} \
+                "${source}" "${target}" "${link_dest}" > >(tee -a "${logfile}") 2>&1
+            else
+                ${ionice} \
+                rsync \
+                ${syncopt} \
+                ${progress} \
+                ${bandwidth} \
+                ${dryrun} \
+                ${verbose} \
+                --stats \
+                --delete \
+                ${backup} \
+                ${exclude} \
+                "${source}" "${target}" > >(tee -a "${logfile}") 2>&1
+            fi
+            rsync_exit_code=${?}
+        fi
 
-		# If the connectiontype is sshpull
-		if [[ "${connectiontype}" == "sshpull" ]]; then
-			# Remote to Local: rsync [option]... [USER@]HOST:source... [target]
-			# Notes: To transfer folder and file names from or to a remote shell 
-			# that contain spaces and/or special characters, the rsync option 
-			# --protect-args (-s) is used. Alternatively, folder and file names 
-			# can also be set in additional single quotes. 
-			# Example: either ... rsync -s "${source}" ... or ... "'${source}'"
-			${ionice} \
-			rsync -s \
-			${syncopt} \
-			${progress} \
-			${bandwidth} \
-			${dryrun} \
-			${verbose} \
-			--stats \
-			--delete \
-			${backup} \
-			${exclude} \
-			-e "ssh -p ${sshport} -i ~/.ssh/${privatekey}" ${sshuser}@${sshpull}:"${source}" "${target}" ${link_dest} > >(tee -a "${logfile}") 2>&1
-			rsync_exit_code=${?}
-		fi
+        # If the connectiontype is sshpull
+        if [[ "${connectiontype}" == "sshpull" ]]; then
+            # Remote to Local: rsync [option]... [USER@]HOST:source... [target]
+            # Notes: To transfer folder and file names from or to a remote shell
+            # that contain spaces and/or special characters, the rsync option
+            # --protect-args (-s) is used. Alternatively, folder and file names
+            # can also be set in additional single quotes.
+            # Example: either ... rsync -s "${source}" ... or ... "'${source}'"
+            if [ -n "${incremental}" ] && [[ "${incremental}" == "true" ]]; then
+                ${ionice} \
+                rsync -s \
+                ${syncopt} \
+                ${progress} \
+                ${bandwidth} \
+                ${dryrun} \
+                ${verbose} \
+                --stats \
+                --delete \
+                ${backup} \
+                ${exclude} \
+                -e "ssh -p ${sshport} -i ~/.ssh/${privatekey}" ${sshuser}@${sshpull}:"${source}" "${target}" "${link_dest}" > >(tee -a "${logfile}") 2>&1
+            else
+                ${ionice} \
+                rsync -s \
+                ${syncopt} \
+                ${progress} \
+                ${bandwidth} \
+                ${dryrun} \
+                ${verbose} \
+                --stats \
+                --delete \
+                ${backup} \
+                ${exclude} \
+                -e "ssh -p ${sshport} -i ~/.ssh/${privatekey}" ${sshuser}@${sshpull}:"${source}" "${target}" > >(tee -a "${logfile}") 2>&1
+            fi
+            rsync_exit_code=${?}
+        fi
 
-		# If the connectiontype is sshpush
-		if [[ "${connectiontype}" == "sshpush" ]]; then
-			# Local to Remote: rsync [option]... [source]... [USER@]HOST:DEST
-			# Notes: To transfer folder and file names from or to a remote shell 
-			# that contain spaces and/or special characters, the rsync option 
-			# --protect-args (-s) is used. Alternatively, folder and file names 
-			# can also be set in additional single quotes. 
-			# Example: either ... rsync -s "${target}" ... or ... "'${target}'"
-			#
-			# The parameter --chmod=Du=rwx,Dgo=rx,Fu=rw,Fog=r sets the permissions
-			# in the backup target to 755 for directories and 644 for files.
-			${ionice} \
-			rsync -s \
-			${syncopt} \
-			${progress} \
-			${bandwidth} \
-			${dryrun} \
-			${verbose} \
-			--stats \
-			--delete \
-			${backup} \
-			${exclude} \
-			--chmod=Du=rwx,Dgo=rx,Fu=rw,Fog=r \
-			-e "ssh -p ${sshport} -i ~/.ssh/${privatekey}" "${source}" ${sshuser}@${sshpush}:"${target}" ${link_dest} > >(tee -a "${logfile}") 2>&1
-			rsync_exit_code=${?}
-		fi
+        # If the connectiontype is sshpush
+        if [[ "${connectiontype}" == "sshpush" ]]; then
+            # Local to Remote: rsync [option]... [source]... [USER@]HOST:DEST
+            # Notes: To transfer folder and file names from or to a remote shell
+            # that contain spaces and/or special characters, the rsync option
+            # --protect-args (-s) is used. Alternatively, folder and file names
+            # can also be set in additional single quotes.
+            # Example: either ... rsync -s "${target}" ... or ... "'${target}'"
+            #
+            # The parameter --chmod=Du=rwx,Dgo=rx,Fu=rw,Fog=r sets the permissions
+            # in the backup target to 755 for directories and 644 for files.
+            if [ -n "${incremental}" ] && [[ "${incremental}" == "true" ]]; then
+                ${ionice} \
+                rsync -s \
+                ${syncopt} \
+                ${progress} \
+                ${bandwidth} \
+                ${dryrun} \
+                ${verbose} \
+                --stats \
+                --delete \
+                ${backup} \
+                ${exclude} \
+                --chmod=Du=rwx,Dgo=rx,Fu=rw,Fog=r \
+                -e "ssh -p ${sshport} -i ~/.ssh/${privatekey}" "${source}" ${sshuser}@${sshpush}:"${target}" "${link_dest}" > >(tee -a "${logfile}") 2>&1
+            else
+                ${ionice} \
+                rsync -s \
+                ${syncopt} \
+                ${progress} \
+                ${bandwidth} \
+                ${dryrun} \
+                ${verbose} \
+                --stats \
+                --delete \
+                ${backup} \
+                ${exclude} \
+                --chmod=Du=rwx,Dgo=rx,Fu=rw,Fog=r \
+                -e "ssh -p ${sshport} -i ~/.ssh/${privatekey}" "${source}" ${sshuser}@${sshpush}:"${target}" > >(tee -a "${logfile}") 2>&1
+            fi
+            rsync_exit_code=${?}
+        fi
 
 		#-----------------------------------------------------------------
 		# rsync error analysis after rsync run...
@@ -483,8 +526,7 @@ if [[ ${exit_code} -eq 0 ]]; then
 			# If the connectiontype is sshpush...
 			if [ -z "${dryrun}" ] && [[ "${connectiontype}" == "sshpush" ]]; then
 
-				# Escape white spaces with backslash
-				at_recycle=$(echo ${target%/*}/@recycle | sed -e 's/ /\ /g')
+				at_recycle=$(echo ${target%/*}/@recycle)
 
 				# If the remote folder exists, then execute the find command
 				if ${ssh} test -d "'${at_recycle}'"; then
@@ -542,10 +584,6 @@ if [[ ${exit_code} -eq 0 ]]; then
 
 		# If the connectiontype is sshpush...
 		if [ -z "${dryrun}" ] && [[ "${connectiontype}" == "sshpush" ]]; then
-
-			# Escape white spaces with backslash
-			latest_link=$(echo ${latest_link} | sed -e 's/ /\ /g')
-			target=$(echo ${target} | sed -e 's/ /\ /g')
 
 			# Check if the remote folder exists, otherwise create it
 			if ${ssh} test -d "'${latest_link}'"; then
