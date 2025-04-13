@@ -51,7 +51,7 @@ Now open the configuration file you have just copied and renamed with a text edi
 
 **Example:**
 
-	nano jarss_Backup_to_USB_hard_drive
+	nano jarss_Backup_to_USB_hard_disk
 
 It is normal to feel a little overwhelmed by the amount of text at first. On closer inspection, however, you will find that most of the text is information explaining the steps. These texts can be identified by the **#** character (double cross, pound or hash) at the start of each line, which indicates a comment line.
 
