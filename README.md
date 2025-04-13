@@ -18,7 +18,7 @@ Bei **jarss** handelt es sich um ein CLI-basiertes Shell-Skript das **rsync** ve
 ## Installationshinweise
 Mit Hilfe des Kommandozeilenprogramms `curl` kann die Shell-Skript-Datei **jarss.sh** sowie die zugehörigen Konfigurationsdateien **jarss_Konfiguration_GER** bzw. **jarss_Konfiguration_ENU** einfach über ein Terminalprogramm deiner Wahl heruntergeladen werden. Erstelle zunächst ein neues (Unter-)Verzeichnis und wechsle in der Kommandozeile zu dem Verzeichnis, in dem die Shell-Skript-Datei und die Konfigurationsdatei(en) gespeichert werden sollen. Führe dann die folgenden Befehle aus, um die Skriptdatei und die Konfigurationsdatei in das ausgewählte Verzeichnis herunterzuladen.
 
-**Download der Scriptdatei**
+**Download der Shell-Skript-Datei jarss.sh**
 
 	curl -L https://raw.githubusercontent.com/toafez/jarss/refs/heads/main/scripts/jarss.sh
 
@@ -87,7 +87,7 @@ Der Aufruf selbst erfolgt am besten, indem man den absoluten Pfad, d.h. den Verz
 
 #### _Hinweis: Text in Großbuchstaben innerhalb eckiger Klammern dient als Platzhalter und muss einschließlich der eckigen Klammern durch eigene Angaben ersetzt werden._
 
-```bash /[ABSOLUTER-PFAD-ZUM-SCRIPT]/jarss.sh --job-name="[DATEINAME]" [--info=progress2] [--dry-run] [-v] [-vv] [-vvv]```
+sudo bash /[ABSOLUTER-PFAD]/jarss.sh --job-name="[DATEINAME]" [--info=progress2] [--dry-run] [-v] [-vv] [-vvv]
 
 ```
 /[ABSOLUTER-PFAD]/jarss.sh   Hier muss anstelle des Platzhalters [ABSOLUTER-PFAD], der absolute Pfad zu dem Verzeichnis angegeben werden, indem sich das Script jarss.sh befindet.
