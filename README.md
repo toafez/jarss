@@ -14,15 +14,7 @@ Bei **jarss** handelt es sich um ein CLI-basiertes Shell-Skript das **rsync** ve
     Beim nächsten und allen weiteren Durchläufen werden die Quelldaten zunächst immer mit dem zuletzt erstellten Image (~latest) der vorherigen Sicherung verglichen. Dann wird im Zielverzeichnis erneut ein Unterverzeichnis mit dem Namen des aktuellen Sicherungsdatums und der aktuellen Sicherungszeit angelegt, wobei diesmal nur alle zwischenzeitlich geänderten oder neu hinzugekommenen Quelldaten übertragen werden, zwischenzeitlich gelöschte Quelldaten werden nicht berücksichtigt. Unveränderte Quelldaten erhalten im Ziel lediglich einen Verweis (sog. Hardlinks) auf die bereits im Image vorhandenen Daten und werden daher nicht erneut übertragen. Dadurch entsteht der Eindruck, dass jede neu erstellte Version den gesamten aktuellen Datenbestand und den damit verbundenen Speicherplatz enthält, obwohl sich der tatsächliche Speicherplatzbedarf nur auf die Änderungen seit der letzten Sicherung beschränkt.
 
     Um die Anzahl der Versionen zu begrenzen, können diese nach Ablauf einer vordefinierten Zeitspanne in Tagen automatisch gelöscht werden.
-
-## Weitere Merkmale von jarss
-- CLI-basiertes Shell-Skript, daher wahrscheinlich (nach individueller Prüfung) auf den meisten unixoiden Betriebssystemen lauffähig. 
--  Obwohl jarss vorzugsweise vom Systembenutzer root oder über sudo ausgeführt werden sollte, ist eine Ausführung als Benutzer, wenn auch mit gewissen Einschränkungen, durchaus möglich.
-- Neben der Sicherung lokaler Pfade können auch Pfade zu oder von entfernten Servern über eine zuvor eingerichtete SSH-Public-Key-Authentifizierung gesichert werden.
-- Die optionale Geschwindigkeitsbegrenzung von rsync wird deaktiviert, sobald das Programm ionice von jarss lokalisiert wurde. ionice ist in der Lage, die hohe Lese- und Schreiblast, die normalerweise durch den rsync-Prozess verursacht wird, so optimieren, dass die Verfügbarkeit des lokalen Systems und der an diesem Prozess beteiligten Remote-Server jederzeit gewährleistet ist.
-- jarss verwendet sowohl die von rsync unterstützte synchrone als auch die inkrementelle Datensicherung, wobei die inkrementelle Datensicherung eine Kombination aus Hardlinks und Symlinks verwendet, um Dateien und Verzeichnisse über Dateisystemgrenzen hinweg verknüpfen zu können.
-- jarss gibt während der Ausführung detaillierte Informationen über den aktuellen Fortschritt der Datensicherung über das Terminal aus und erstellt gleichzeitig ein detailliertes Protokoll zur späteren Durchsicht. 
-
+ 
 ## Installationshinweise
 Mit Hilfe des Kommandozeilenprogramms `curl` kann die Shell-Skript-Datei **jarss.sh** sowie die zugehörigen Konfigurationsdateien **jarss_Konfiguration_GER** bzw. **jarss_Konfiguration_ENU** einfach über ein Terminalprogramm deiner Wahl heruntergeladen werden. Erstelle zunächst ein neues (Unter-)Verzeichnis und wechsle in der Kommandozeile zu dem Verzeichnis, in dem die Shell-Skript-Datei und die Konfigurationsdatei(en) gespeichert werden sollen. Führe dann die folgenden Befehle aus, um die Skriptdatei und die Konfigurationsdatei in das ausgewählte Verzeichnis herunterzuladen.
 
