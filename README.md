@@ -87,7 +87,7 @@ Der Aufruf selbst erfolgt am besten, indem man den absoluten Pfad, d.h. den Verz
 
 #### _Hinweis: Text in Großbuchstaben innerhalb eckiger Klammern dient als Platzhalter und muss einschließlich der eckigen Klammern durch eigene Angaben ersetzt werden._
 
-sudo bash /[ABSOLUTER-PFAD]/jarss.sh --job-name="[DATEINAME]" [--info=progress2] [--dry-run] [-v] [-vv] [-vvv]
+	sudo bash /[ABSOLUTER-PFAD]/jarss.sh --job-name="[DATEINAME]" [--info=progress2] [--dry-run] [-v] [-vv] [-vvv]
 
 ```
 /[ABSOLUTER-PFAD]/jarss.sh   Hier muss anstelle des Platzhalters [ABSOLUTER-PFAD], der absolute Pfad zu dem Verzeichnis angegeben werden, indem sich das Script jarss.sh befindet.
