@@ -5,11 +5,11 @@ Deutsch | [English](README_en.md)
 Bei **jarss** handelt es sich um ein CLI-basiertes Shell-Skript das **rsync** verwendet, um Daten zwischen lokalen Pfaden oder Pfaden, auf die über das Netzwerk mit **SSH-Public-Key-Authentifizierung** zugegriffen werden kann, zu übertragen. Neben **synchronisierten** Datensicherungen unterstützt jarss auch **inkrementelle** Datensicherungen. 
 
 ## So funktioniert jarss genau
-- ### Synchronisierte Datensicherung
-    Bei der ersten Ausführung einer synchronen Datensicherung werden zunächst alle Quelldaten in das gewünschte Zielverzeichnis übertragen, bei allen weiteren Ausführungen werden nur die zwischenzeitlich geänderten, neu hinzugekommenen oder gelöschten Quelldaten mit dem Zielverzeichnis verglichen und entsprechend übertragen. Um einem möglichen Datenverlust vorzubeugen, können bei Bedarf alle zwischenzeitlich gelöschten Daten der Quelle(n) im Ziel für einen vordefinierten Zeitraum in einen Papierkorb mit dem Verzeichnisnamen @recycle verschoben werden. Erst nach Ablauf dieser Aufbewahrungsfrist werden die Daten unwiderruflich gelöscht.
+- ### Synchrone Datensicherung mit optionalem Löschschutz
+    Bei der ersten Ausführung einer synchronen Datensicherung werden zunächst alle Quelldaten in das gewünschte Zielverzeichnis übertragen. Dieser Vorgang wird als Vollbackup bezeichnet. Bei allen weiteren Ausführungen werden nur die zwischenzeitlich geänderten oder neu hinzugekommenen Quelldaten mit dem Zielverzeichnis verglichen und entsprechend übertragen. Dieser Vorgang wird Delta-Transfer-Algorithmus genannt. Gelöschte Quelldaten werden ebenfalls aus dem Zielverzeichnis entfernt. Um einem möglichen Datenverlust vorzubeugen, können bei Bedarf alle zwischenzeitlich gelöschten Daten der Quelle(n) im Ziel für einen vordefinierten Zeitraum in einen Papierkorb mit dem Verzeichnisnamen @recycle verschoben werden. Erst nach Ablauf dieser Aufbewahrungsfrist werden die Daten unwiderruflich gelöscht.
 
-- ### Inkrementelle Datensicherung
-    Bei der ersten Ausführung einer inkrementellen Datensicherung werden alle Quelldaten in einem Unterverzeichnis, das nach Datum und Uhrzeit der aktuellen Sicherung benannt ist, in das gewünschte Zielverzeichnis übertragen. Unmittelbar danach wird mittels Symlinks ein Image der aktuellen Sicherung erstellt, das auf den i.d.R. nicht sichtbaren Ordner ~latest verweist, der sich ebenfalls im Zielverzeichnis befindet.
+- ### Versionierte, inkrementelle Datensicherung
+    Bei der ersten Ausführung einer versionierten, inkrementellen Datensicherung werden zunächst alle Quelldaten in einem Unterverzeichnis, das nach Datum und Uhrzeit der aktuellen Sicherung benannt ist, in das gewünschte Zielverzeichnis übertragen. Unmittelbar danach wird mittels Symlinks ein Image der aktuellen Sicherung erstellt, das auf den i.d.R. nicht sichtbaren Ordner ~latest verweist, der sich ebenfalls im Zielverzeichnis befindet.
 
     Beim nächsten und allen weiteren Durchläufen werden die Quelldaten zunächst immer mit dem zuletzt erstellten Image (~latest) der vorherigen Sicherung verglichen. Dann wird im Zielverzeichnis erneut ein Unterverzeichnis mit dem Namen des aktuellen Sicherungsdatums und der aktuellen Sicherungszeit angelegt, wobei diesmal nur alle zwischenzeitlich geänderten oder neu hinzugekommenen Quelldaten übertragen werden, zwischenzeitlich gelöschte Quelldaten werden nicht berücksichtigt. Unveränderte Quelldaten erhalten im Ziel lediglich einen Verweis (sog. Hardlinks) auf die bereits im Image vorhandenen Daten und werden daher nicht erneut übertragen. Dadurch entsteht der Eindruck, dass jede neu erstellte Version den gesamten aktuellen Datenbestand und den damit verbundenen Speicherplatz enthält, obwohl sich der tatsächliche Speicherplatzbedarf nur auf die Änderungen seit der letzten Sicherung beschränkt.
 
@@ -21,7 +21,6 @@ Mit Hilfe des Kommandozeilenprogramms `curl` kann die Shell-Skript-Datei **jarss
 **Download der Shell-Skript-Datei jarss.sh**
 
 	curl -L -O https://raw.githubusercontent.com/toafez/jarss/refs/heads/main/scripts/jarss.sh
-
 
 **Download der deutschen Konfigurationsdatei**
 
