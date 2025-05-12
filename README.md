@@ -16,20 +16,20 @@ Bei **jarss** handelt es sich um ein CLI-basiertes Shell-Skript das **rsync** ve
     Um die Anzahl der Versionen zu begrenzen, können diese nach Ablauf einer vordefinierten Zeitspanne in Tagen automatisch gelöscht werden.
  
 ## Installationshinweise
-Mit Hilfe des Kommandozeilenprogramms `curl` kann die Shell-Skript-Datei **jarss.sh** sowie die zugehörigen Konfigurationsdateien **jarss_Konfiguration_GER** bzw. **jarss_Konfiguration_ENU** einfach über ein Terminalprogramm deiner Wahl heruntergeladen werden. Erstelle zunächst ein neues (Unter-)Verzeichnis und wechsle in der Kommandozeile zu dem Verzeichnis, in dem die Shell-Skript-Datei und die Konfigurationsdatei(en) gespeichert werden sollen. Führe dann die folgenden Befehle aus, um die Skriptdatei und die Konfigurationsdatei in das ausgewählte Verzeichnis herunterzuladen.
+Mit Hilfe des Kommandozeilenprogramms `curl` kann die Shell-Skript-Datei **jarss.sh** sowie die zugehörigen Konfigurationsdateien **jarss_Konfiguration_GER** bzw. **jarss_Configuration_ENU** einfach über ein Terminalprogramm deiner Wahl heruntergeladen werden. Erstelle zunächst ein neues (Unter-)Verzeichnis und wechsle in der Kommandozeile zu dem Verzeichnis, in dem die Shell-Skript-Datei und die Konfigurationsdatei(en) gespeichert werden sollen. Führe dann die folgenden Befehle aus, um die Skriptdatei und die Konfigurationsdatei in das ausgewählte Verzeichnis herunterzuladen.
 
 **Download der Shell-Skript-Datei jarss.sh**
 
-	curl -L https://raw.githubusercontent.com/toafez/jarss/refs/heads/main/scripts/jarss.sh
+	curl -L -O https://raw.githubusercontent.com/toafez/jarss/refs/heads/main/scripts/jarss.sh
 
 
 **Download der deutschen Konfigurationsdatei**
 
-    curl -L https://raw.githubusercontent.com/toafez/jarss/refs/heads/main/scripts/jarss_Konfiguration_GER
+    curl -L -O https://raw.githubusercontent.com/toafez/jarss/refs/heads/main/scripts/jarss_Konfiguration_GER
 
 **Download der englischen Konfigurationsdatei**
 
-    curl -L https://raw.githubusercontent.com/toafez/jarss/refs/heads/main/scripts/jarss_Configuration_ENU
+    curl -L -O https://raw.githubusercontent.com/toafez/jarss/refs/heads/main/scripts/jarss_Configuration_ENU
 
 Führe anschließend im selben (Unter-)Verzeichnis den folgenden Befehl aus, um der Shell-Skript-Datei **jarss.sh** Ausführungsrechte zu erteilen. Dabei ist darauf zu achten, den Befehl als Systembenutzer root auszuführen (zu erkennen an dem vorangestellten sudo-Befehl).
 
@@ -44,7 +44,7 @@ Da mit **jarss** mehrere verschiedene Konfigurationen erstellt und somit mehrere
 
 **Beispiel:**
 
-	mv jarss_Configuration_GER jarss_Backup_auf_USB-Festplatte
+	mv jarss_Konfiguration_GER jarss_Backup_auf_USB-Festplatte
 
 ## Inhalt der Konfigurationsdatei anpassen
 Öffne nun die soeben kopierte und umbenannte Konfigurationsdatei mit einem Texteditor deiner Wahl. In diesem Beispiel wird der Texteditor "nano" verwendet.
