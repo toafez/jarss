@@ -2,7 +2,7 @@ Deutsch | [English](README_en.md)
 
 # jarss (just another rsync shell script)
 
-Bei **jarss** handelt es sich um ein CLI-basiertes Shell-Skript das **rsync** verwendet, um Daten zwischen lokalen Pfaden oder Pfaden, auf die über das Netzwerk mit **SSH-Public-Key-Authentifizierung** zugegriffen werden kann, zu übertragen. Neben **synchronisierten** Datensicherungen unterstützt jarss auch **inkrementelle** Datensicherungen. 
+Bei **jarss** handelt es sich um ein CLI-basiertes Shell-Skript das **rsync** verwendet, um Daten zwischen lokalen Pfaden oder Pfaden, auf die über das Netzwerk mit **SSH-Public-Key-Authentifizierung** zugegriffen werden kann, zu übertragen. Neben **synchronen Datensicherung mit optionalem Löschschutz** unterstützt jarss auch die **Versionierte, inkrementelle Datensicherung**. 
 
 ## So funktioniert jarss genau
 - ### Synchrone Datensicherung mit optionalem Löschschutz
