@@ -1,5 +1,15 @@
 jarss Release Notes
 
+Version 1.0-400 vom 22.05.2025
+
+ - Deutsch
+    - Nach der Ausführung einer versionierten, inkrementellen Datensicherung löschte die anschließende Versionsbereinigung nicht die älteren Versionsordner, die in der Konfiguration als Tage angegeben waren. Stattdessen wurden im aktuell erstellten Versionsordner alle Ordner gelöscht, die älter als die angegebene Anzahl an Tagen waren. Dadurch wurden mit der Zeit immer weniger Daten gesichert, sodass die Versionsvorhaltung nicht mehr gewährleistet war. Aus diesem Grund wird dringend empfohlen, die bisherige versionierte, inkrementelle Datensicherung vollständig neu zu erstellen – selbst wenn sich mit der Zeit automatisch ein neuer, vollständiger Versionsstand ergibt. Ich bitte, die Unannehmlichkeiten vielmals zu entschuldigen.
+    - HINWEIS: Um das Problem zu lösen, muss lediglich das aktualisierte Skript „jarss.sh” heruntergeladen und anstelle des alten Skripts verwendet werden.
+
+ - English
+    - After performing an incremental, versioned data backup, subsequent version clean-up did not delete older version folders specified in the configuration as being older than a certain number of days. Instead, all folders within the latest version that were older than the specified number of days were deleted. Consequently, less and less data was backed up over time, meaning that version retention could no longer be guaranteed. For this reason, it is strongly recommended that you completely recreate the previous versioned, incremental data backup, even if a new, complete version status is created automatically over time. I apologise for any inconvenience caused.
+    - Note: To solve the problem, simply download and use the updated 'jarss.sh' script instead of the old one.
+
 
 Version 1.0-300 vom 22.03.2025
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 # Filename: jarss.sh - coded in utf-8
-script_version="1.0-300"
+script_version="1.0-400"
 
 #         jarss - just another rsync shell script
 #    Copyright (C) 2025 by tommes (toafez) | MIT License
@@ -255,7 +255,7 @@ if [[ ${exit_code} -eq 0 ]]; then
 	fi
 
 	#---------------------------------------------------------------------
-	# Switch on @recycle bin without incremental and set target path
+	# Switch on @recycle bin without incremental versioning and set target path
 	#---------------------------------------------------------------------
 	if [ -z "${incremental}" ] || [[ "${incremental}" == "false" ]]; then
 
@@ -285,7 +285,7 @@ if [[ ${exit_code} -eq 0 ]]; then
 	fi
 
 	#---------------------------------------------------------------------
-	# Switch on incremental without @recycle and set target path
+	# Switch on incremental versioning without @recycle and set target path
 	# --------------------------------------------------------------------
 	if [ -n "${incremental}" ] && [[ "${incremental}" == "true" ]]; then
 
@@ -503,7 +503,7 @@ if [[ ${exit_code} -eq 0 ]]; then
 fi
 
 # --------------------------------------------------------------------
-# Rotation cycle for deleting /@recycle when incremental is off
+# Rotation cycle for deleting /@recycle when incremental versioning is off
 # --------------------------------------------------------------------
 if [[ ${exit_code} -eq 0 ]]; then
 	if [ -z "${incremental}" ] || [[ "${incremental}" == "false" ]]; then
@@ -547,7 +547,7 @@ if [[ ${exit_code} -eq 0 ]]; then
 fi
 
 # --------------------------------------------------------------------
-# Re-link version of the current data record if incremental is switched on
+# Re-link version of the current data record if incremental versioning is switched on
 # --------------------------------------------------------------------
 if [[ ${exit_code} -eq 0 ]]; then
 	if [ -n "${incremental}" ] && [[ "${incremental}" == "true" ]]; then
@@ -574,8 +574,10 @@ if [[ ${exit_code} -eq 0 ]]; then
 			fi
 
 			# Rotation cycle for deleting versions when /@recycle is switched off
-			if [ -d "${target%/*}" ]; then
-				find "${target%/*}/"* -maxdepth 0 -type d -mtime +${versions} -print0 | xargs -0 rm -r 2>/dev/null
+			# Note: The initial target ${init_target} must be specified here and 
+			#       not ${target} in order to delete older version folders.
+			if [ -d "${init_target%/*}" ]; then
+				find "${init_target%/*}/"* -maxdepth 0 -type d -mtime +${versions} -print0 | xargs -0 rm -r 2>/dev/null
 				if [[ ${?} -eq 0 ]]; then
 					echo "${txt_incremental_del_success}" | tee -a "${logfile}"
 				fi
@@ -603,8 +605,10 @@ if [[ ${exit_code} -eq 0 ]]; then
 			fi
 
 			# Rotation cycle for deleting versions when /@recycle is switched off
-			if ${ssh} test -d "'${target%/*}'"; then
-				${ssh} "find '${target%/*}'/* -maxdepth 0 -type d -mtime +${versions} -print0 | xargs -0 rm -r" 2>/dev/null
+			# Note: The initial target ${init_target} must be specified here and 
+			#       not ${target} in order to delete older version folders.
+			if ${ssh} test -d "'${init_target%/*}'"; then
+				${ssh} "find '${init_target%/*}'/* -maxdepth 0 -type d -mtime +${versions} -print0 | xargs -0 rm -r" 2>/dev/null
 				if [[ ${?} -eq 0 ]]; then
 					echo "${txt_incremental_del_success}" | tee -a "${logfile}"
 				fi
