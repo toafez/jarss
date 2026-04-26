@@ -1,5 +1,54 @@
 jarss Release Notes
 
+Version 2.0-000 vom 26.04.2026
+
+ - Deutsch
+
+    - System
+        - Mithilfe des statischen Analysewerkzeugs ShellCheck wurden im Skript Fehler und Stilprobleme überprüft und korrigiert.
+        - Um das Skript besser gegen unerwartete Ereignisse abzusichern, wurde es mit dem Aufruf der Debugging- und Tracing-Tools "set -euo pipefail" ausgestattet.
+        - Das Error-Handling, also die Erkennung, Behandlung und Protokollierung von Rückgabewerten bzw. Exit-Codes, wurde vollständig überarbeitet.
+        - Die Ermittlung des absoluten Pfads zur Weiterverarbeitung innerhalb des Skripts wurde sicherer und robuster gestaltet.
+        - Ab sofort wird geprüft, ob auf GitHub eine neue Version von jarss verfügbar ist. Falls ja, wird eine entsprechende Information über das Protokoll ausgegeben.
+        - Zur besseren Lesbarkeit des Skripts wurden Texte, die auf der Standardausgabe (stdout) des Terminals ausgegeben sowie in der Protokolldatei gespeichert werden, in eine Funktion ausgelagert.
+        - Es wurden zahlreiche weitere kleinere und größere Stil- und Codeverbesserungen sowie Skriptanpassungen vorgenommen.
+
+    - Protokolldatei
+        - Das Protokoll kann ab sofort per E-Mail versendet werden, sofern das Betriebssystem das Kommandozeilen-Werkzeug curl bereitstellt. (Vielen Dank an @deltapapa für die Initialzündung)
+        - Des Weiteren kann eingestellt werden, ob eine E-Mail grundsätzlich oder nur bei einer Warnung bzw. einem vorzeitigen Abbruch versendet werden soll.
+        - Die Erzeugung der Protokolldatei wurde vereinfacht und robuster gestaltet. Zudem wurden die Dateirechte von 0777 auf 0666 beschränkt.
+ 
+    - Rsync
+        - Die für lokale und Remoteverbindungen zuständigen rsync-Loops wurden vereinfacht und robuster gestaltet.
+        - Die Überprüfung, ob das ionice-Paket auf dem Betriebssystem installiert ist, war fehlerhaft und wurde korrigiert.
+        - Bei einer versionierten, inkrementellen Datensicherung muss die Variable ${versions} den Wert 2 oder höher enthalten, da es sonst zu Fehlern bei der Skriptausführung kommt. Der Fehler wurde behoben.
+        - Bei einer versionierten, inkrementellen Datensicherung kam es zu einem Abfragefehler bei der Löschung älterer Versionsstände, sofern keine Treffer gefunden wurden. Der Fehler wurde behoben.
+        - Bei einer synchronisierten Datensicherung kam es zu einem Abfragefehler bei der Löschung älterer Einträge im Recycling-Ordner, sofern keine Treffer gefunden wurden.  Der Fehler wurde behoben.
+
+ - English
+
+    - System
+        - The static analysis tool ShellCheck was used to identify and correct errors and style issues in the script.
+        - To provide better protection against unexpected events, the script was configured to use debugging and tracing tools with the command "set -euo pipefail".
+        - Error handling, or the detection, handling, and logging of return values and exit codes, has been completely overhauled.
+        - Determining the absolute path for further processing within the script has also been made more secure and robust.
+        - From now on, the system will periodically check GitHub for a new version of jarss.  If so, a message will be displayed in the log to that effect.
+        - To make the script easier to read, the text output to the terminal's standard output (stdout) and saved to the log file has been moved into a function.
+        - A number of minor and major stylistic and code improvements, as well as script adjustments, have been made.
+
+    - Log file
+        - The log can now be emailed, provided that the operating system supports the cURL command-line tool.(Many thanks to @deltapapa for getting the ball rolling!)
+        - You can also specify whether an email should be sent in all cases or only if a warning or early termination occurs.
+        - The process of generating the log file has been simplified and strengthened. Additionally, file permissions have been restricted from 0777 to 0666.
+
+    - Rsync
+        - The rsync loops that handle local and remote connections have been simplified and strengthened.
+        - The check to determine whether the ionice package is installed on the operating system was faulty and has been corrected.
+        - For versioned, incremental data backups, the value of the variable ${versions} must be 2 or higher; otherwise, errors will occur during script execution. This error has now been fixed.
+        - A query error occurred during a versioned, incremental data backup when deleting older versions if no matches were found. This issue has now been resolved.
+        - A query error occurred during a synchronised data backup when deleting older entries from the Recycle Bin if no matches were found.  This issue has now been resolved.
+
+
 Version 1.0-400 vom 22.05.2025
 
  - Deutsch

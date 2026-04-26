@@ -1,6 +1,6 @@
 #!/bin/bash
 # Filename: jarss_Konfiguration_GER - coded in utf-8
-jobconfig_version="1.0-200"
+jobconfig_version="2.0-000"
 language="ger"
 #-----------------------------------------------------------------------------------------------
 # jarss - just another rsync shell script
@@ -206,3 +206,52 @@ incremental="false"
 # gelöscht werden sollen.Der Zeitwert muss mindestens 2 Tage betragen.
 #---------------------------------------------------------------------
 versions="30"
+
+
+# E-Mail-Benachrichtigung
+#---------------------------------------------------------------------
+# Syntaxmuster: email_notification="never", "always" oder "error"
+#---------------------------------------------------------------------
+# Nach Ausführung des Datensicherungsauftrags kann das erstellte
+# Protokoll per E-Mail versendet werden. Diese Funktion ist
+# standardmäßig deaktiviert. Nach der Aktivierung kann eingestellt
+# werden, ob eine E-Mail nach jeder Ausführung oder nur im Fehlerfall
+# versendet werden soll.
+#---------------------------------------------------------------------
+email_notification="never"
+
+
+# E-Mail Konfiguration
+#---------------------------------------------------------------------
+# Syntaxmuster: Individuell (Siehe nachfolgende Kommentare)
+#---------------------------------------------------------------------
+# Damit eine E-Mail versendet werden kann, sind einige Angaben deines
+# E-Mail-Anbieters erforderlich. Diese werden in den nachfolgenden
+# Kommentaren näher beschrieben.
+#
+# Wichtiger Hinweis: In dieser Konfigurationsdatei wird das Passwort
+# deines E-Mail-Anbieters unverschlüsselt gespeichert, sodass es für
+# jeden lesbar ist. Achte daher darauf, dass sich die 
+# Konfigurationsdatei an einem sicheren Ort befindet.
+#---------------------------------------------------------------------
+
+# SMTP server host (FQDN oder IP)
+smtp_host="smtp.example.com"
+
+# SMTP port (leer = Default 587). Übliche Werte: 465 (implicit TLS), 587 (submission), 25 (relay)
+smtp_port="465"
+
+# TLS aktivieren? "yes" für TLS/SSL, sonst "no" oder leer
+tls_enabled="yes"
+
+# SMTP-Benutzername (für AUTH), z. B. user@example.com
+smtp_user="user@example.com"
+
+# SMTP-Passwort oder App-Password (achte auf sichere Handhabung!)
+smtp_passwd="REPLACE_WITH_SECURE_PASSWORD"
+
+# Absenderadresse (From:)
+mail_from="sender@example.com"
+
+# Empfängeradresse (To:) — bei mehreren Empfängern als kommagetrennte Liste oder mehrfach --mail-rcpt verwenden
+mail_to="recipient@example.com"

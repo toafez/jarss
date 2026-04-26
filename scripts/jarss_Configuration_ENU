@@ -1,6 +1,6 @@
 #!/bin/bash
 # Filename: jarss_Configuration_ENU - coded in utf-8
-jobconfig_version="1.0-200"
+jobconfig_version="2.0-000"
 language="enu"
 #-----------------------------------------------------------------------------------------------
 # jarss - just another rsync shell script
@@ -198,3 +198,51 @@ incremental="false"
 # must be at least 2 days.
 #---------------------------------------------------------------------
 versions="30"
+
+
+# Email notification
+#---------------------------------------------------------------------
+# Syntax pattern: email_notification="never", "always" or "error"
+#---------------------------------------------------------------------
+# After the backup job is complete, the generated log can be sent via
+# email. This feature is disabled by default. After enabling it, you
+# can configure the log to be sent either after every run or only in
+# the event of an error.
+#---------------------------------------------------------------------
+email_notification="never"
+
+
+# Email Configuration
+#---------------------------------------------------------------------
+# Syntax pattern: Individual (see comments below)
+#---------------------------------------------------------------------
+# In order to send an email, you will need to provide some information
+# from your email provider. This process is described in more detail
+# in the comments below.
+#
+# Important note: Your email provider's password is stored as plain
+# text in this configuration file, meaning it can be read by anyone.
+# Therefore, make sure to keep the configuration file in a secure
+# location.
+#---------------------------------------------------------------------
+
+# SMTP server host (FQDN or IP)
+smtp_host="smtp.example.com"
+
+# SMTP port (default 587 if empty). Common values: 465 (implicit TLS), 587 (submission), 25 (relay)
+smtp_port="465"
+
+# Enable TLS? "yes" for TLS/SSL, otherwise "no" or empty
+tls_enabled="yes"
+
+# SMTP username (for AUTH), e.g. user@example.com
+smtp_user="user@example.com"
+
+# SMTP password or app password (handle securely!)
+smtp_passwd="REPLACE_WITH_SECURE_PASSWORD"
+
+# Sender address (From:)
+mail_from="sender@example.com"
+
+# Recipient address (To:) — for multiple recipients use a comma-separated list or multiple --mail-rcpt calls
+mail_to="recipient@example.com"
